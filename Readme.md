@@ -1,7 +1,7 @@
 # Учебный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Sergey Ukhanov](https://up.htmlacademy.ru/react/4/user/1183933).
-* Наставник: [Marcel Akhmetshin](https://htmlacademy.ru/profile/marsel).
+* Наставник: [Marsel Akhmetshin](https://htmlacademy.ru/profile/marsel).
 
 ---
 
