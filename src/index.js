@@ -10,7 +10,7 @@ const config = {
 
 const init = () => {
   ReactDOM.render(
-      <App errors={config.errors.limit} />,
+      <App errorsLimit={config.errors.limit} />,
       document.querySelector(`#root`)
   );
 };
