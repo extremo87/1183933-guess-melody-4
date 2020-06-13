@@ -10,7 +10,7 @@ describe(`WelcomSreen e2e`, () => {
     const clickFn = jest.fn();
 
     const welcomeScreen = shallow(
-        <WelcomeScreen errorsLimit={3} welcomeButtonHandler={clickFn} />
+        <WelcomeScreen errorsLimit={3} onGameStart={clickFn} />
     );
 
     const button = welcomeScreen.find(`button.welcome__button`);
