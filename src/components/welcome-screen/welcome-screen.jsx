@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 export default class WelcomeScreen extends Component {
   render() {
-    const {errorsLimit, welcomeButtonHandler} = this.props;
+    const {errorsLimit, onGameStart} = this.props;
     return (
       <section className="welcome">
         <div className="welcome__logo"><img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83"/></div>
-        <button className="welcome__button" onClick={welcomeButtonHandler}>
+        <button className="welcome__button" onClick={onGameStart}>
           <span className="visually-hidden">Начать игру</span>
         </button>
         <h2 className="welcome__rules-title">Правила игры</h2>
@@ -24,5 +24,5 @@ export default class WelcomeScreen extends Component {
 
 WelcomeScreen.propTypes = {
   errorsLimit: PropTypes.number.isRequired,
-  welcomeButtonHandler: PropTypes.func.isRequired
+  onGameStart: PropTypes.func.isRequired
 };

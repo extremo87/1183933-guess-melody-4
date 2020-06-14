@@ -4,13 +4,13 @@ import WelcomeScreen from '../welcome-screen/welcome-screen';
 
 export default class App extends React.Component {
 
-  welcomeButtonHandler() {
+  handleGameStart() {
     return;
   }
 
   render() {
     const {errorsLimit} = this.props;
-    return <WelcomeScreen errorsLimit={errorsLimit} welcomeButtonHandler={this.welcomeButtonHandler} />;
+    return <WelcomeScreen errorsLimit={errorsLimit} onGameStart={this.handleGameStart} />;
   }
 }
 
