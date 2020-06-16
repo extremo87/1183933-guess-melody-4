@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import WelcomeScreen from '../welcome-screen/welcome-screen';
 
-export default class App extends React.Component {
+export default class App extends PureComponent {
 
   handleGameStart() {
     return;
