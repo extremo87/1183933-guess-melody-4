@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 
-export class QuestionArtist extends PureComponent {
+export default class QuestionArtist extends PureComponent {
 
   render() {
     return (
@@ -12,7 +12,7 @@ export class QuestionArtist extends PureComponent {
           </a>
 
           <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
-            <circle className="timer__line" cx="390" cy="390" r="370" style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center" />
+            <circle className="timer__line" cx="390" cy="390" r="370" style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
           </svg>
 
           <div className="game__mistakes">
