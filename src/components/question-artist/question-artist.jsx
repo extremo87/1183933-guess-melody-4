@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class QuestionArtist extends PureComponent {
 
   render() {
-    const {question} = this.props;
+    const {question, onAnswer} = this.props;
     const {song, answers} = question;
 
     return (
@@ -44,8 +44,20 @@ export default class QuestionArtist extends PureComponent {
             {
               answers.map((answer) =>
                 <div className="artist" key={answer.id}>
-                  <input className="artist__input visually-hidden" type="radio" name="answer" value={answer.artist} id={`answer-${answer.id}`} />
-                  <label className="artist__name" htmlFor="answer-1">
+                  <input className="artist__input visually-hidden"
+                    type="radio"
+                    name="answer"
+                    value={answer.artist}
+                    id={`answer-${answer.id}`}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      onAnswer({
+                        id: answer.id,
+                        value: (song.artist === answer.artist) ? true : false
+                      });
+                    }}
+                  />
+                  <label className="artist__name" htmlFor={`answer-${answer.id}`}>
                     <img className="artist__picture" src={answer.picture} alt={answer.artist} />
                     {answer.artist}
                   </label>
@@ -60,6 +72,7 @@ export default class QuestionArtist extends PureComponent {
 }
 
 QuestionArtist.propTypes = {
+  onAnswer: PropTypes.func.isRequired,
   question: PropTypes.shape({
     id: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,

@@ -22,11 +22,19 @@ export default class App extends PureComponent {
     };
 
     this.handleGameStart = this.handleGameStart.bind(this);
+    this.handleAnswer = this.handleAnswer.bind(this);
   }
 
   handleGameStart() {
     this.setState((state) => {
       return {isStarted: !state.isStarted};
+    });
+  }
+
+  handleAnswer(answer) {
+    this.setState((prevState) => {
+      const currentAnswers = [...prevState.answers, answer];
+      return {answers: currentAnswers};
     });
   }
 
@@ -41,17 +49,16 @@ export default class App extends PureComponent {
     // If we see that game has started
     if ((isStarted) && (answers.length < questions.length)) {
       // We get not answered questions
-      const availableQuestions = questions.filter((item) => !Object.keys(answers).includes(item.id));
+      const answeredQuestion = answers.map((item) => item.id);
+      const availableQuestions = questions.filter((item) => !answeredQuestion.includes(item.id));
       // Then get random question
       const question = getRandomArrayItem(availableQuestions);
       if (question) {
         switch (question.type) {
           case `genre`:
-            return <QuestionGenre question={question} />;
+            return <QuestionGenre question={question} onAnswer={this.handleAnswer}/>;
           case `artist`:
-            return <QuestionArtist question={question} />;
-          case `default`:
-            return null;
+            return <QuestionArtist question={question} onAnswer={this.handleAnswer}/>;
         }
       }
     }
@@ -81,10 +88,10 @@ export default class App extends PureComponent {
             {this.renderScreen(questions, errorsLimit)}
           </Route>
           <Route path="/dev-artist">
-            <QuestionArtist question={(artistQuestions) ? artistQuestions[0] : {}} />
+            <QuestionArtist question={(artistQuestions) ? artistQuestions[0] : {}} onAnswer={this.handleAnswer} />
           </Route>
           <Route path="/dev-genre">
-            <QuestionGenre question={(genreQuestions) ? genreQuestions[0] : {}} />
+            <QuestionGenre question={(genreQuestions) ? genreQuestions[0] : {}} onAnswer={this.handleAnswer} />
           </Route>
         </Switch>
       </Router>
