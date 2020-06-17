@@ -16,19 +16,21 @@ export default class App extends PureComponent {
   }
 
   render() {
-    const {errorsLimit} = this.props;
+    const {errorsLimit, questions} = this.props;
+    const artistQuestions = questions.filter((question) => question.type === `artist`);
+    const genreQuestions = questions.filter((question) => question.type === `genre`);
 
     return (
       <Router>
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/" >
             <WelcomeScreen errorsLimit={errorsLimit} onGameStart={this.handleGameStart} />
           </Route>
-          <Route path="/guess-artist">
-            <QuestionArtist />
+          <Route path="/dev-artist">
+            <QuestionArtist question={(artistQuestions) ? artistQuestions[0] : {}} />
           </Route>
-          <Route path="/guess-genre">
-            <QuestionGenre />
+          <Route path="/dev-genre">
+            <QuestionGenre question={(genreQuestions) ? genreQuestions[0] : {}} />
           </Route>
         </Switch>
       </Router>
@@ -38,5 +40,6 @@ export default class App extends PureComponent {
 
 App.propTypes = {
   errorsLimit: PropTypes.number.isRequired,
+  questions: PropTypes.array.isRequired
 };
 
