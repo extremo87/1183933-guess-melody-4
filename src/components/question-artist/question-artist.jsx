@@ -5,7 +5,7 @@ export default class QuestionArtist extends PureComponent {
 
   render() {
     const {question, onAnswer} = this.props;
-    const {song, answers} = question;
+    const {song, answers, id: questionId} = question;
 
     return (
       <section className="game game--artist">
@@ -52,8 +52,8 @@ export default class QuestionArtist extends PureComponent {
                     onChange={(e) => {
                       e.preventDefault();
                       onAnswer({
-                        id: answer.id,
-                        value: (song.artist === answer.artist) ? true : false
+                        id: questionId,
+                        value: (song.artist === answer.artist)
                       });
                     }}
                   />

@@ -68,11 +68,11 @@ export default class App extends PureComponent {
       return null;
     }
     // Game was finished successfuly
-    if ((!isStarted) && (answers.length === questions.length)) {
+    if ((isStarted) && (answers.length === questions.length)) {
       // Some logic will be here (result page)
-      return null;
+      this.setState({isStarted: false, answers: []});
+      return <WelcomeScreen errorsLimit={errorsLimit} onGameStart={this.handleGameStart} />;
     }
-
     return null;
   }
 

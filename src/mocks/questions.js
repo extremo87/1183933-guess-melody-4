@@ -42,5 +42,25 @@ export default [
       picture: `${AVATAR_URL}?random=${Math.random()}`,
       artist: `Jim Beam`,
     }],
+  }, {
+    id: 3,
+    type: `artist`,
+    song: {
+      artist: `Bon Jovi`,
+      src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+    },
+    answers: [{
+      id: 1,
+      picture: `${AVATAR_URL}?random=${Math.random()}}`,
+      artist: `Aerosmith`,
+    }, {
+      id: 2,
+      picture: `${AVATAR_URL}?random=${Math.random()}`,
+      artist: `Bon Jovi`,
+    }, {
+      id: 3,
+      picture: `${AVATAR_URL}?random=${Math.random()}`,
+      artist: `Rolling Stones`,
+    }],
   }
 ];

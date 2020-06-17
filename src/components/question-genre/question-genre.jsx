@@ -51,7 +51,6 @@ export default class QuestionGenre extends PureComponent {
               });
             }}
           >
-
             {
               answers.map((answer, index) => {
                 const {src, id} = answer;
