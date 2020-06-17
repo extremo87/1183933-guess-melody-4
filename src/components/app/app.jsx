@@ -9,10 +9,64 @@ import {
   Route
 } from 'react-router-dom';
 
+import {getRandomArrayItem} from '../../utils/utils';
+
 export default class App extends PureComponent {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isStarted: false,
+      answers: []
+    };
+
+    this.handleGameStart = this.handleGameStart.bind(this);
+  }
+
   handleGameStart() {
-    return;
+    this.setState((state) => {
+      return {isStarted: !state.isStarted};
+    });
+  }
+
+  renderScreen(questions, errorsLimit) {
+    const {isStarted, answers} = this.state;
+
+    // If game isn't started and answers are empty then we return WelcomeScreen component
+    if ((!isStarted) && (answers.length === 0)) {
+      return <WelcomeScreen errorsLimit={errorsLimit} onGameStart={this.handleGameStart} />;
+    }
+
+    // If we see that game has started
+    if ((isStarted) && (answers.length < questions.length)) {
+      // We get not answered questions
+      const availableQuestions = questions.filter((item) => !Object.keys(answers).includes(item.id));
+      // Then get random question
+      const question = getRandomArrayItem(availableQuestions);
+      if (question) {
+        switch (question.type) {
+          case `genre`:
+            return <QuestionGenre question={question} />;
+          case `artist`:
+            return <QuestionArtist question={question} />;
+          case `default`:
+            return null;
+        }
+      }
+    }
+    // Game was stopped
+    if ((!isStarted) && (answers.length < questions.length) && (answers.length !== 0)) {
+      // Some logic will be here (pause or fail probably)
+      return null;
+    }
+    // Game was finished successfuly
+    if ((!isStarted) && (answers.length === questions.length)) {
+      // Some logic will be here (result page)
+      return null;
+    }
+
+    return null;
   }
 
   render() {
@@ -24,7 +78,7 @@ export default class App extends PureComponent {
       <Router>
         <Switch>
           <Route exact path="/" >
-            <WelcomeScreen errorsLimit={errorsLimit} onGameStart={this.handleGameStart} />
+            {this.renderScreen(questions, errorsLimit)}
           </Route>
           <Route path="/dev-artist">
             <QuestionArtist question={(artistQuestions) ? artistQuestions[0] : {}} />

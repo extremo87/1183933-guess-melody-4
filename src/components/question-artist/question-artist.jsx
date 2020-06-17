@@ -61,6 +61,7 @@ export default class QuestionArtist extends PureComponent {
 
 QuestionArtist.propTypes = {
   question: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     song: PropTypes.shape({
       artist: PropTypes.string.isRequired,
