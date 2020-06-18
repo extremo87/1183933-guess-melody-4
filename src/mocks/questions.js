@@ -1,12 +1,6 @@
-import React from 'react';
-import App from './app';
-import renderer from 'react-test-renderer';
-
-const errorsLimit = 3;
-
 const AVATAR_URL = `https://picsum.photos/128`;
 
-const testQuestions = [
+export default [
   {
     id: 1,
     type: `genre`,
@@ -70,12 +64,3 @@ const testQuestions = [
     }],
   }
 ];
-
-describe(`App`, () => {
-  it(`App renders correctly`, () => {
-    const tree = renderer
-      .create(<App errorsLimit={errorsLimit} questions={testQuestions}/>)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
