@@ -3,9 +3,26 @@ import PropTypes from 'prop-types';
 
 export default class QuestionArtist extends PureComponent {
 
-  render() {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    e.preventDefault();
+
+    const artist = e.target.value;
     const {question, onAnswer} = this.props;
-    const {song, answers, id: questionId} = question;
+    const {song, id: questionId} = question;
+
+    onAnswer({
+      id: questionId,
+      value: (song.artist === artist)
+    });
+  }
+
+  render() {
+    const {song, answers} = this.props.question;
 
     return (
       <section className="game game--artist">
@@ -49,13 +66,7 @@ export default class QuestionArtist extends PureComponent {
                     name="answer"
                     value={answer.artist}
                     id={`answer-${answer.id}`}
-                    onChange={(e) => {
-                      e.preventDefault();
-                      onAnswer({
-                        id: questionId,
-                        value: (song.artist === answer.artist)
-                      });
-                    }}
+                    onChange={this.handleChange}
                   />
                   <label className="artist__name" htmlFor={`answer-${answer.id}`}>
                     <img className="artist__picture" src={answer.picture} alt={answer.artist} />

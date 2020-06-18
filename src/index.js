@@ -2,12 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import questions from './mocks/questions';
-
-const config = {
-  errors: {
-    limit: 3
-  }
-};
+import {config} from './config/config';
 
 const init = () => {
   ReactDOM.render(

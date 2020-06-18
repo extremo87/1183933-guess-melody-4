@@ -34,8 +34,8 @@ export default class App extends PureComponent {
 
   handleAnswer(answer) {
     this.setState((prevState) => {
-      const currentAnswers = [...prevState.answers, answer];
-      return {answers: currentAnswers};
+      const answers = [...prevState.answers, answer];
+      return {answers};
     });
   }
 
@@ -52,6 +52,7 @@ export default class App extends PureComponent {
         switch (question.type) {
           case QuestionType.GENRE:
             return <QuestionGenre question={question} onAnswer={this.handleAnswer}/>;
+
           case QuestionType.ARTIST:
             return <QuestionArtist question={question} onAnswer={this.handleAnswer}/>;
         }

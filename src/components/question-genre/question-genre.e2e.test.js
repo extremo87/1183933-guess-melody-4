@@ -29,19 +29,41 @@ const testQuestion = {
 };
 
 
-it(`Genre question form sent`, () => {
+it(`User choosed correct answer`, () => {
   const onAnswerFn = jest.fn();
   const screen = shallow(<QuestionGenre question={testQuestion} onAnswer={onAnswerFn} />);
-  const input = screen.find(`input`).first();
+  const input = screen.find(`input`);
   const form = screen.find(`form`);
-  input.simulate(`change`, {
-    target: {checked: true}
+
+  input.at(0).simulate(`change`, {
+    target: {value: input.at(0).props().value}
+  });
+  input.at(3).simulate(`change`, {
+    target: {value: input.at(3).props().value}
   });
   form.simulate(`submit`, {
     preventDefault() {}
   });
+
   expect(onAnswerFn).toHaveBeenCalledTimes(1);
   expect(onAnswerFn.mock.calls[0][0]).toMatchObject({id: 1, value: true});
 });
 
+it(`User choosed incorrect answer`, () => {
+  const onAnswerFn = jest.fn();
+  const screen = shallow(<QuestionGenre question={testQuestion} onAnswer={onAnswerFn} />);
+  const input = screen.find(`input`);
+  const form = screen.find(`form`);
+
+  input.at(0).simulate(`change`, {
+    target: {value: input.at(1).props().value}
+  });
+
+  form.simulate(`submit`, {
+    preventDefault() {}
+  });
+
+  expect(onAnswerFn).toHaveBeenCalledTimes(1);
+  expect(onAnswerFn.mock.calls[0][0]).toMatchObject({id: 1, value: false});
+});
 

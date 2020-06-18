@@ -35,7 +35,8 @@ it(`Correct answer choosed`, () => {
   const screen = shallow(<QuestionArtist question={testQuestion} onAnswer={onAnswerFn} />);
   const input = screen.find(`input`).first();
   input.simulate(`change`, {
-    preventDefault() {}
+    preventDefault() {},
+    target: {value: input.props().value}
   });
   expect(onAnswerFn).toHaveBeenCalledTimes(1);
   expect(onAnswerFn.mock.calls[0][0]).toMatchObject({id: 1, value: true});

@@ -96,7 +96,7 @@ exports[`Genre game screen renders correctly 1`] = `
             name="answer"
             onChange={[Function]}
             type="checkbox"
-            value={0}
+            value={1}
           />
           <label
             className="game__check"
@@ -133,7 +133,7 @@ exports[`Genre game screen renders correctly 1`] = `
             name="answer"
             onChange={[Function]}
             type="checkbox"
-            value={1}
+            value={2}
           />
           <label
             className="game__check"
@@ -170,7 +170,7 @@ exports[`Genre game screen renders correctly 1`] = `
             name="answer"
             onChange={[Function]}
             type="checkbox"
-            value={2}
+            value={3}
           />
           <label
             className="game__check"
@@ -207,7 +207,7 @@ exports[`Genre game screen renders correctly 1`] = `
             name="answer"
             onChange={[Function]}
             type="checkbox"
-            value={3}
+            value={4}
           />
           <label
             className="game__check"

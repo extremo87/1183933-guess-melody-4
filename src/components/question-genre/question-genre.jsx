@@ -1,37 +1,56 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import {arraysEqual} from '../../utils/utils';
+
 export default class QuestionGenre extends PureComponent {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      answers: [false, false, false, false]
+      answers: []
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleAnswer() {
-    return true;
+    const playerAnswers = [...this.state.answers];
+    const {question} = this.props;
+    const {genre, answers} = question;
+
+    const correctAnswers = this._getCorrectAnswers(answers, genre);
+
+    return arraysEqual(playerAnswers.sort(), correctAnswers.sort());
   }
 
   handleSubmit(e) {
     e.preventDefault();
+
     const {question} = this.props;
     const {id} = question;
     const {onAnswer} = this.props;
+
     onAnswer({id, value: this.handleAnswer()});
   }
 
   handleChange(e) {
-    const {value, checked} = e.target;
-    this.setState((prevState) => {
-      const currentAnswers = prevState.answers;
-      currentAnswers[value] = checked;
-      return {answers: [...currentAnswers]};
-    });
+    const answer = Number(e.target.value);
+    const stateAnswers = [...this.state.answers];
+    const answers = (stateAnswers.includes(answer)) ? stateAnswers.filter((item) =>item !== answer)
+      : [...stateAnswers, answer];
+
+    return this.setState({answers});
+  }
+
+  _getCorrectAnswers(answers, genre) {
+    return answers.reduce(function (accumulator, currentValue) {
+      if (currentValue.genre === genre) {
+        accumulator.push(currentValue.id);
+      }
+      return accumulator;
+    }, []);
   }
 
   render() {
@@ -63,7 +82,7 @@ export default class QuestionGenre extends PureComponent {
           <h2 className="game__title">Выберите {genre} треки</h2>
           <form className="game__tracks" onSubmit={this.handleSubmit}>
             {
-              answers.map((answer, index) => {
+              answers.map((answer) => {
                 const {src, id} = answer;
                 return (
                   <div className="track" key={id}>
@@ -76,9 +95,9 @@ export default class QuestionGenre extends PureComponent {
                     <div className="game__answer">
                       <input className="game__input visually-hidden"
                         type="checkbox" name="answer"
-                        checked={playerAnswers[index]}
+                        checked={playerAnswers.includes(id)}
                         id={`answer-${id}`}
-                        value={index}
+                        value={id}
                         onChange={this.handleChange}
 
                       />
