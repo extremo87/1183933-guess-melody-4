@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 
 import {getRandomArrayItem} from '../../utils/utils';
+import {QuestionType} from '../../config/config';
 
 export default class App extends PureComponent {
 
@@ -26,8 +27,8 @@ export default class App extends PureComponent {
   }
 
   handleGameStart() {
-    this.setState((state) => {
-      return {isStarted: !state.isStarted};
+    this.setState(() => {
+      return {isStarted: true};
     });
   }
 
@@ -40,14 +41,8 @@ export default class App extends PureComponent {
 
   renderScreen(questions, errorsLimit) {
     const {isStarted, answers} = this.state;
-
-    // If game isn't started and answers are empty then we return WelcomeScreen component
-    if ((!isStarted) && (answers.length === 0)) {
-      return <WelcomeScreen errorsLimit={errorsLimit} onGameStart={this.handleGameStart} />;
-    }
-
     // If we see that game has started
-    if ((isStarted) && (answers.length < questions.length)) {
+    if (isStarted) {
       // We get not answered questions
       const answeredQuestion = answers.map((item) => item.id);
       const availableQuestions = questions.filter((item) => !answeredQuestion.includes(item.id));
@@ -55,31 +50,21 @@ export default class App extends PureComponent {
       const question = getRandomArrayItem(availableQuestions);
       if (question) {
         switch (question.type) {
-          case `genre`:
+          case QuestionType.GENRE:
             return <QuestionGenre question={question} onAnswer={this.handleAnswer}/>;
-          case `artist`:
+          case QuestionType.ARTIST:
             return <QuestionArtist question={question} onAnswer={this.handleAnswer}/>;
         }
       }
     }
-    // Game was stopped
-    if ((!isStarted) && (answers.length < questions.length) && (answers.length !== 0)) {
-      // Some logic will be here (pause or fail probably)
-      return null;
-    }
-    // Game was finished successfuly
-    if ((isStarted) && (answers.length === questions.length)) {
-      // Some logic will be here (result page)
-      this.setState({isStarted: false, answers: []});
-      return <WelcomeScreen errorsLimit={errorsLimit} onGameStart={this.handleGameStart} />;
-    }
-    return null;
+    // If game isn't started and answers are empty then we return WelcomeScreen component
+    return <WelcomeScreen errorsLimit={errorsLimit} onGameStart={this.handleGameStart} />;
   }
 
   render() {
     const {errorsLimit, questions} = this.props;
-    const artistQuestions = questions.filter((question) => question.type === `artist`);
-    const genreQuestions = questions.filter((question) => question.type === `genre`);
+    const artistQuestions = questions.filter((question) => question.type === QuestionType.ARTIST);
+    const genreQuestions = questions.filter((question) => question.type === QuestionType.GENRE);
 
     return (
       <Router>
@@ -88,10 +73,10 @@ export default class App extends PureComponent {
             {this.renderScreen(questions, errorsLimit)}
           </Route>
           <Route path="/dev-artist">
-            <QuestionArtist question={(artistQuestions) ? artistQuestions[0] : {}} onAnswer={this.handleAnswer} />
+            <QuestionArtist question={(artistQuestions.length > 0) ? artistQuestions[0] : {}} onAnswer={this.handleAnswer} />
           </Route>
           <Route path="/dev-genre">
-            <QuestionGenre question={(genreQuestions) ? genreQuestions[0] : {}} onAnswer={this.handleAnswer} />
+            <QuestionGenre question={(genreQuestions.length > 0) ? genreQuestions[0] : {}} onAnswer={this.handleAnswer} />
           </Route>
         </Switch>
       </Router>

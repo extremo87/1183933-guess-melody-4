@@ -9,15 +9,34 @@ export default class QuestionGenre extends PureComponent {
     this.state = {
       answers: [false, false, false, false]
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleAnswer() {
     return true;
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const {question} = this.props;
+    const {id} = question;
+    const {onAnswer} = this.props;
+    onAnswer({id, value: this.handleAnswer()});
+  }
+
+  handleChange(e) {
+    const {value, checked} = e.target;
+    this.setState((prevState) => {
+      const currentAnswers = prevState.answers;
+      currentAnswers[value] = checked;
+      return {answers: [...currentAnswers]};
+    });
+  }
+
   render() {
-    const {question, onAnswer} = this.props;
-    const {answers, genre, id: questionId} = question;
+    const {question} = this.props;
+    const {answers, genre} = question;
     const {answers: playerAnswers} = this.state;
 
     return (
@@ -42,15 +61,7 @@ export default class QuestionGenre extends PureComponent {
 
         <section className="game__screen">
           <h2 className="game__title">Выберите {genre} треки</h2>
-          <form className="game__tracks"
-            onSubmit={(e) => {
-              e.preventDefault();
-              onAnswer({
-                id: questionId,
-                value: this.handleAnswer()
-              });
-            }}
-          >
+          <form className="game__tracks" onSubmit={this.handleSubmit}>
             {
               answers.map((answer, index) => {
                 const {src, id} = answer;
@@ -67,15 +78,8 @@ export default class QuestionGenre extends PureComponent {
                         type="checkbox" name="answer"
                         checked={playerAnswers[index]}
                         id={`answer-${id}`}
-                        value={`answer-${id}`}
-                        onChange={(e) => {
-                          const answerValue = e.target.checked;
-                          this.setState((prevState) => {
-                            const currentAnswers = prevState.answers;
-                            currentAnswers[index] = answerValue;
-                            return {answers: [...currentAnswers]};
-                          });
-                        }}
+                        value={index}
+                        onChange={this.handleChange}
 
                       />
                       <label className="game__check" htmlFor={`answer-${id}`}>Отметить</label>
