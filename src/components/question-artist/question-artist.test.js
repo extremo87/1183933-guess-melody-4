@@ -29,8 +29,12 @@ const testQuestion = {
 
 it(`Artist game screen renders correctly`, () => {
   const tree = renderer
-    .create(<QuestionArtist question={testQuestion} onAnswer={() => {}} />)
-    .toJSON();
+    .create(<QuestionArtist
+      question={testQuestion}
+      onAnswer={() => {}}
+      renderPlayer={() => {}}
+    />
+    ).toJSON();
   expect(tree).toMatchSnapshot();
 });
 

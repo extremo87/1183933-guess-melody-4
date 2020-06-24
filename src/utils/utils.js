@@ -18,7 +18,7 @@ export const arraysEqual = (a, b) => {
 
   const difference = a.filter((x) => !b.includes(x));
 
-  return (difference.length > 0) ? false : true;
+  return difference.length === 0;
 };
 
 

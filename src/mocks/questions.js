@@ -6,28 +6,28 @@ export default [
     type: `genre`,
     genre: `rock`,
     answers: [{
-      id: 1,
-      src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+      id: 123,
+      src: `https://www.learningcontainer.com/wp-content/uploads/2020/02/Sample-OGG-File.ogg`,
       genre: `rock`,
     }, {
-      id: 2,
+      id: 222,
       src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
       genre: `blues`,
     }, {
-      id: 3,
+      id: 321,
       src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
       genre: `jazz`,
     }, {
-      id: 4,
+      id: 423,
       src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
       genre: `rock`,
     }],
   }, {
-    id: 2,
+    id: 333,
     type: `artist`,
     song: {
       artist: `Jim Beam`,
-      src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+      src: `https://upload.wikimedia.org/wikipedia/ru/b/b6/Jon_Bon_Jovi-_Blaze_Of_Glory.ogg`,
     },
     answers: [{
       id: 1,
@@ -43,7 +43,7 @@ export default [
       artist: `Jim Beam`,
     }],
   }, {
-    id: 3,
+    id: 323,
     type: `artist`,
     song: {
       artist: `Bon Jovi`,
@@ -62,5 +62,26 @@ export default [
       picture: `${AVATAR_URL}?random=${Math.random()}`,
       artist: `Rolling Stones`,
     }],
-  }
+  },
+  {
+    id: 456,
+    type: `artist`,
+    song: {
+      artist: `Rammstein`,
+      src: `https://upload.wikimedia.org/wikipedia/ru/b/b5/Rammstein_-_Amerika.ogg`,
+    },
+    answers: [{
+      id: 1,
+      picture: `${AVATAR_URL}?random=${Math.random()}`,
+      artist: `Rammstein`,
+    }, {
+      id: 2,
+      picture: `${AVATAR_URL}?random=${Math.random()}`,
+      artist: `Metallica`,
+    }, {
+      id: 3,
+      picture: `${AVATAR_URL}?random=${Math.random()}`,
+      artist: `Sting`,
+    }],
+  },
 ];

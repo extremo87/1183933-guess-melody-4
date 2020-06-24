@@ -31,7 +31,7 @@ const testQuestion = {
 
 it(`User choosed correct answer`, () => {
   const onAnswerFn = jest.fn();
-  const screen = shallow(<QuestionGenre question={testQuestion} onAnswer={onAnswerFn} />);
+  const screen = shallow(<QuestionGenre question={testQuestion} onAnswer={onAnswerFn} renderPlayer={() => {}} />);
   const input = screen.find(`input`);
   const form = screen.find(`form`);
 
@@ -46,12 +46,12 @@ it(`User choosed correct answer`, () => {
   });
 
   expect(onAnswerFn).toHaveBeenCalledTimes(1);
-  expect(onAnswerFn.mock.calls[0][0]).toMatchObject({id: 1, value: true});
+  expect(onAnswerFn.mock.calls[0][0]).toMatchObject({id: 1, correctAnswer: true});
 });
 
 it(`User choosed incorrect answer`, () => {
   const onAnswerFn = jest.fn();
-  const screen = shallow(<QuestionGenre question={testQuestion} onAnswer={onAnswerFn} />);
+  const screen = shallow(<QuestionGenre question={testQuestion} onAnswer={onAnswerFn} renderPlayer={() => {}}/>);
   const input = screen.find(`input`);
   const form = screen.find(`form`);
 
@@ -64,6 +64,6 @@ it(`User choosed incorrect answer`, () => {
   });
 
   expect(onAnswerFn).toHaveBeenCalledTimes(1);
-  expect(onAnswerFn.mock.calls[0][0]).toMatchObject({id: 1, value: false});
+  expect(onAnswerFn.mock.calls[0][0]).toMatchObject({id: 1, correctAnswer: false});
 });
 
